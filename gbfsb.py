@@ -1164,7 +1164,7 @@ async def example():
             with open(target_folder + "dump.txt", mode="w", encoding="utf-8") as f: # retrieve dump
                 f.write(res['dump'])
             print("Rendering NPC...")
-            sp = await r.renderNPC(force_dummy=True)
+            sp = await r.renderNPC()
             if sp is not None:
                 with open(target_folder + "render.png", "wb") as f:
                     f.write(sp)

@@ -36,7 +36,7 @@ async def example():
             with open(target_folder + "dump.txt", mode="w", encoding="utf-8") as f: # retrieve dump
                 f.write(res['dump'])
             print("Rendering NPC...")
-            sp = await r.renderNPC(force_dummy=True)
+            sp = await r.renderNPC()
             if sp is not None:
                 with open(target_folder + "render.png", "wb") as f:
                     f.write(sp)
@@ -77,6 +77,12 @@ Example 2: With build_sheet = 2.
 Example 3: build_sheet = 2 in GBFBP with a different color palette.  
 ![example 3](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_GBFBP.png?raw=true)  
   
+At its core, it access and read the CJS file corresponding to each manifest and parse it to build the following:  
+- A list of sub rectangles which correspond to part of the spritesheets.  
+- The animation tree of how every parts are rigged together.  
+  
+However, to keep things simple, it doesn't process any temporal data such as positions at X frames or the time passing between frames.  
+  
 `renderCJS` returns a dictionary with two keys:  
 - `dump`: A string value, which contains a dump of the full animation tree.  
 - `img`: Another dictionary of pairs (string filename, PNG image as bytes).  
@@ -101,3 +107,6 @@ The function takes the following parameters:
 This renderer has a defect:  
 - It might render some elements intended for frames further in the animation. This is a problem noticeable with Wamdus' umbrella or Hekate's voluptous chest. The first has a hacky fix in place but not the second. More characters might be affected.  
 - Shapes aren't supported. So particles and such won't appear on the output image.  
+  
+Example 6: Wamdus Render in dummy mode with her fix.  
+![Dummy Rendering](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_6.png?raw=true)
