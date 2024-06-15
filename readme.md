@@ -70,9 +70,9 @@ First, it accepts the following parameters:
 - `build_sheet`: An integer. At 0, the feature is disabled. At 1, it create spritesheets from the animation files. At 2, it does the same as 1 but with transparency and without text and with smaller rectangles to be slower to actual character proportions. This mode is intended to be used with projects such as [GBFAP](https://github.com/MizaGBF/GBFAP) or [GBFBP](https://github.com/MizaGBF/GBFBP) for example. See the screenshots below for examples.  
 - `bound_box`: A boolean. To be used when build_sheet is enabled. It draws green bound boxes instead.
   
-Placeholder 1
-Placeholder 2
-Placeholder 3
+![build_sheet 1](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_1.png?raw=true)
+![build_sheet 2](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_2.png?raw=true)
+![Demo in GBFBP with different colors](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_3.png?raw=true)
   
 `renderCJS` returns a dictionary with two keys:  
 - `dump`: A string value, which contains a dump of the full animation tree.  
@@ -82,11 +82,11 @@ The following part of the example write those files to disk.
   
 Finally, the call to `renderNPC`. As the name indicates, it's only usable with characters, as the method used only work properly with them. It renders the first frame of the fade out animation as such:
   
-Placeholder 4
+![Render with bound boxes](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_4.png?raw=true)
   
 It can also be used if spritesheets aren't available to have a breakdown of the character parts:
   
-Placeholder 5
+![Dummy Rendering](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_5.png?raw=true)
   
 The function takes the following parameters:
 - `enable_dummy`: Boolean, default True. Will attempt to render if spritesheets aren't available.  
