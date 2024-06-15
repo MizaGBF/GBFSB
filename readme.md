@@ -75,7 +75,7 @@ Example 1: With build_sheet = 1.
 Example 2: With build_sheet = 2.  
 ![example 2](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_2.png?raw=true)  
 Example 3: build_sheet = 2 in GBFBP with a different color palette.  
-![example 3](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_3.png?raw=true)  
+![example 3](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_GBFBP.png?raw=true)  
   
 `renderCJS` returns a dictionary with two keys:  
 - `dump`: A string value, which contains a dump of the full animation tree.  
