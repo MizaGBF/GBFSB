@@ -119,9 +119,10 @@ class GBFSB():
     
     Returns
     ----------
-    bool: True if success, False if invalid parameter
+    bool: True if success, False if invalid parameter, already loaded, not found, etc...
     """
     async def load(self, eid : int, *, uncap : int = 1, style : str = "") -> bool:
+        if self.id is not None: return False
         sid = str(eid)
         if len(sid) != 10 or eid < 1000000000 or eid >= 4000000000 or uncap < 0 or uncap > 99: return False
         self.id = eid
