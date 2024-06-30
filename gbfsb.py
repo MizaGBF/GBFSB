@@ -215,16 +215,18 @@ class GBFSB():
     Parameters
     ----------
     size: Tuple, width and heigth
+    transparent_bg: Boolean, put a transparent alpha channel
     
     Returns
     ----------
     Image: image object
     """
-    def mc(self, size : tuple) -> Image:
+    def mc(self, size : tuple, transparent_bg : bool = True) -> Image:
         img = Image.new('RGB', size, "black")
-        im_a = Image.new("L", img.size, "black")
-        img.putalpha(im_a)
-        im_a.close()
+        if transparent_bg:
+            im_a = Image.new("L", img.size, "black")
+            img.putalpha(im_a)
+            im_a.close()
         return img
 
     """renderCJS()
@@ -236,6 +238,7 @@ class GBFSB():
         - build_dummy: Boolean (Default is False). If True, CJS files will be parsed for dummy spritesheet building.
         - build_sheet: Integer (Default is 0). build_dummy MUST be enabled. If 0, nothing happens. If 1, explanatory dummy spritesheets will be created. If 2, dummy spritesheets usable by GBFAP or GBFBP will be created.
         - bound_box: Boolean (Default is False). If True and build_sheet different of 0, draw bounding boxes instead.
+        - normal_bound: Boolean (Default is False). If True and build_sheet is 2, the rectangles will have their normal sizes.
     
     Returns
     ----------
@@ -325,7 +328,7 @@ class GBFSB():
                             w += ssz[k][0] + 200
                             if ssz[k][1] > h: h = ssz[k][1]
                         if w == 0: w = 200
-                        img = Image.new('RGB', (int(round(w)), int(round(h+200))), "black")
+                        img = self.mc((int(round(w)), int(round(h+200))), options.get('bound_box', False))
                         d = ImageDraw.Draw(img)
                     
                     txkk = {}
@@ -376,9 +379,12 @@ class GBFSB():
                                 else:
                                     d.rectangle(dsf, fill=fill, outline=(140,140,140))
                             elif build_sheet == 2:
-                                dsrt = [scr[0][1][2]*0.7, scr[0][1][3]*0.7]
-                                if dsrt[0] < 1: dsrt[0] = 1
-                                if dsrt[1] < 1: dsrt[1] = 1
+                                if options.get('normal_bound', False):
+                                    dsrt = [scr[0][1][2], scr[0][1][3]]
+                                else:
+                                    dsrt = [scr[0][1][2]*0.7, scr[0][1][3]*0.7]
+                                    if dsrt[0] < 1: dsrt[0] = 1
+                                    if dsrt[1] < 1: dsrt[1] = 1
                                 dsf = [(scr[0][1][2] - dsrt[0]) / 2, (scr[0][1][3] - dsrt[1]) / 2]
                                 dsf = [(int(round(scr[0][1][0]+dsf[0])), int(round(scr[0][1][1]+dsf[1]))), (int(round(scr[0][1][0]+dsf[0]+dsrt[0])), int(round(scr[0][1][1]+dsf[1]+dsrt[1])))]
                                 if dsf[0][0] > dsf[1][0]: dsf = [(dsf[1][0], dsf[0][1]), (dsf[0][0], dsf[1][1])]
@@ -389,11 +395,12 @@ class GBFSB():
                                 else:
                                     d.rectangle(dsf, fill=fill)
                     if build_sheet == 1:
-                        for k in txll:
-                            if k[0] != k[1]:
-                                d.line(k, fill=(255, 0, 0), width=2)
-                        for k in txkk:
-                            d.text((txkk[k][0]+1, txkk[k][1]+1),k.replace(file + "_", ""),font=self.dmp_font,fill=(255,255,255), stroke_width=1, stroke_fill=(0, 0, 0))
+                        if not options.get('bound_box', False):
+                            for k in txll:
+                                if k[0] != k[1]:
+                                    d.line(k, fill=(255, 0, 0), width=2)
+                            for k in txkk:
+                                d.text((txkk[k][0]+1, txkk[k][1]+1),k.replace(file + "_", ""),font=self.dmp_font,fill=(255,255,255), stroke_width=1, stroke_fill=(0, 0, 0))
                         nm = file.replace(file + '_', '') + ".png"
                         await asyncio.sleep(0)
                         with BytesIO() as output:

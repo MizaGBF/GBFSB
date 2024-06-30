@@ -68,7 +68,8 @@ The later is where some of the magic happens.
 First, it accepts the following parameters:  
 - `build_dummy`: A boolean, it must be set to True or it will only load the corresponding CJS files and parse them. Set it to False if you only want to use `renderNPC` (See below).  
 - `build_sheet`: An integer. At 0, the feature is disabled. At 1, it creates spritesheets from the animation files. At 2, it does the same as 1 but with transparency and without text and with smaller rectangles to be closer to actual character proportions. This mode is intended to be used with projects such as [GBFAP](https://github.com/MizaGBF/GBFAP) or [GBFBP](https://github.com/MizaGBF/GBFBP) for example. See the screenshots below for examples.  
-- `bound_box`: A boolean. To be used when build_sheet is enabled. It draws green bound boxes instead.
+- `bound_box`: A boolean. To be used when build_sheet is enabled. It draws green bound boxes instead.  
+- `normal_bound`: A boolean. If True and b`build_sheet` is set to 1, rectangles won't have a reduced sizes.  
   
 Example 1: With build_sheet = 1.  
 ![example 1](https://github.com/MizaGBF/GBFSB/blob/main/assets/readme_example_1.png?raw=true)  
