@@ -3,11 +3,10 @@
 A python script to parse Granblue Animation files and make Sprite sheets from them.  
   
 # Disclamer  
-- This is an old project.  
+- This is an old project (5 years old).  
 - Multiple versions of this project exist(ed), used as plugins for other projects.  
 - It used to be obfuscated.  
 - It was made to not use any external libraries (beside a HTTP client), so it's quite slow at making all the matrix transformations.  
-- Improvement
   
 To sum it up:  
 What's presented here is condensed/best-of version, for educational and archival purpose.  
